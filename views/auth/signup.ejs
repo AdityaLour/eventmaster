@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up | EventMaster</title>
+    <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+
+<%- include('../partials/header') %>
+
+<section class="hero" style="height:auto; padding:140px 0;">
+    <div class="hero-background"></div>
+
+    <div class="container">
+        <div class="hero-content">
+            <h1 class="hero-title">Create Your Account</h1>
+            <p class="hero-subtitle">
+                Get started with EventMaster and plan unforgettable events.
+            </p>
+
+            <form class="form-card" method="post" action="/auth/signup">
+                <input type="text" placeholder="Username" name="username" required >
+                <input type="email" placeholder="Email address" name="email" required>
+                <input type="password" placeholder="Password" name="password" required minlength="6">
+
+
+                <button type="submit" class="btn-primary">Sign Up</button>
+            </form>
+
+            <p style="margin-top:1.5rem; color:white;">
+                Already have an account?
+                <a href="/auth/login" style="color:#fff; text-decoration:underline;">
+                    Log in
+                </a>
+            </p>
+        </div>
+    </div>
+</section>
+
+<%- include('../partials/footer') %>
+
+<script src="/script.js"></script>
+</body>
+</html>
