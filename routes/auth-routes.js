@@ -1,31 +1,11 @@
 const express = require("express");
 const router = express.Router();
+const authController = require("../controllers/auth-controller")
 
-router.get("/signup", (req, res) => {
-  res.render("auth/signup");
-});
+router.get("/signup", authController.getSignUp)
 
-router.get("/login", (req, res) => {
-  res.render("auth/login");
-});
+router.get("/login", authController.getLogin);
 
-router.post("/signup", function (req, res) {
-  if (
-    req.body.username == "" ||
-    req.body.password == "" ||
-    req.body.email == ""
-  ) {
-    res.render("auth/signup", { error: "Fill all the fields" });
-    return;
-  }
-  if (req.body.password.length < 6) {
-    res.render("auth/signup", {
-      error: "Minimum 6 characters required in Password",
-    });
-    return;
-  }
-  console.log(req.body);
-  res.redirect("/auth/login");
-});
+router.post("/signup", authController.signUp)
 
 module.exports = router;
