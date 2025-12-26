@@ -59,6 +59,49 @@ async function signUp(req, res) {
   }
 }
 
+async function login(req, res) {
+  const enteredData = {
+    email: req.body.email,
+    password: req.body.password,
+  };
+
+  if (!enteredData.email || !enteredData.password) {
+    return res.render("auth/login", {
+      error: "Please provide both email and password.",
+    });
+  }
+
+  try {
+    const enteredUser = await User.findOne({ email: enteredData.email }).select(
+      "+password"
+    );
+
+    if (!enteredUser) {
+      return res.render("auth/login", {
+        error: "Invalid email or password.",
+      });
+    }
+
+    const passwordIsCorrect = await bcrypt.compare(
+      enteredData.password,
+      enteredUser.password
+    );
+
+    if (!passwordIsCorrect) {
+      return res.render("auth/login", {
+        error: "Invalid email or password.",
+      });
+    }
+
+    res.redirect("/");
+  } catch (error) {
+    console.error("Login Error:", error);
+    res.render("auth/login", {
+      error: "Something went wrong. Please try again.",
+    });
+  }
+}
+
 module.exports = {
   getSignUp,
   getLogin,
